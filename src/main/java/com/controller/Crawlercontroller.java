@@ -47,6 +47,10 @@ public class Crawlercontroller {
 
     }
 
+    /**
+     * 爬虫监控  stopped ： 爬虫停止状态   running ：爬虫运行状态
+     * @return
+     */
     @GetMapping
     public ResponseEntity getStatus() {
 
