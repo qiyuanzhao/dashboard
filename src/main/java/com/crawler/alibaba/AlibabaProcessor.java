@@ -21,7 +21,7 @@ public class AlibabaProcessor extends BasePageProcessor {
     private Site site = Site.me()
             .setCharset("utf-8")
             .setRetryTimes(6)//重试6次
-            .setSleepTime(5000)
+            .setSleepTime(10000)
             .setTimeOut(10 * 1000)
 //            .addHeader("Proxy-Authorization", DynamicProxyDownloader.getAuthHeader())
 //            .addHeader("Referer", "https://s.weibo.com")

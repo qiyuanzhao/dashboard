@@ -55,7 +55,6 @@ public class AliPage implements BasePage {
     }
 
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
     public void process(Page page) {
 
@@ -63,25 +62,29 @@ public class AliPage implements BasePage {
         Integer integer = (Integer) page.getRequest().getExtra("page");
         String keyword = page.getRequest().getExtra("keyword").toString();
         String rawText = page.getRawText();
+        try {
+            JSONObject jsonObject = JSONObject.parseObject(rawText);
+            JSONArray rows = jsonObject.getJSONArray("rows");
+            List<AliEntity> aliEntities1 = rows.toJavaList(AliEntity.class);
 
-        JSONObject jsonObject = JSONObject.parseObject(rawText);
-        JSONArray rows = jsonObject.getJSONArray("rows");
-        List<AliEntity> aliEntities1 = rows.toJavaList(AliEntity.class);
+            aliEntities1.forEach(aliEntity -> {
+                aliEntity.setKeyword(keyword);
+                aliEntity.setTaskId(taskId);
+            });
 
-        aliEntities1.forEach(aliEntity -> {
-            aliEntity.setKeyword(keyword);
-            aliEntity.setTaskId(taskId);
-        });
+            aliPage.alibabaRepository.saveAll(aliEntities1);
 
-        aliPage.alibabaRepository.saveAll(aliEntities1);
+            logger.info("第{}页", integer);
 
-        logger.info("第{}页", integer);
+            if (CollectionUtils.isNotEmpty(aliEntities1)) {
 
-        if (CollectionUtils.isNotEmpty(aliEntities1)) {
+                page.addTargetRequest(new Request("http://www.yxbf.net/Keyword/SearchHotWords?rand=1600338591639").putExtra("page", integer + 1).putExtra("keyword", keyword).setMethod(HttpConstant.Method.POST).putExtra("taskId", taskId));
 
-            page.addTargetRequest(new Request("http://www.yxbf.net/Keyword/SearchHotWords?rand=1600338591639").putExtra("page", integer + 1).putExtra("keyword", keyword).setMethod(HttpConstant.Method.POST).putExtra("taskId", taskId));
-
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
     }
 

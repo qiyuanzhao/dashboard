@@ -3,14 +3,17 @@ package com.service;
 import com.crawler.alibaba.AlibabaProcessor;
 import com.downloader.AlibabaDownloader;
 import com.entity.CrawlerTask;
+import com.monitor.MySpiderMonitor;
 import com.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.monitor.SpiderMonitor;
 import us.codecraft.webmagic.utils.HttpConstant;
 
+import javax.management.JMException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,9 +39,12 @@ public class AliService {
     @Autowired
     private TaskRepository taskRepository;
 
+    private MySpiderMonitor mySpiderMonitor;
+
+
 
     @Transactional(rollbackFor = Exception.class)
-    public void crawlerStart(CrawlerTask crawlerTask) {
+    public void crawlerStart(CrawlerTask crawlerTask) throws JMException {
 
         CrawlerTask save = taskRepository.save(crawlerTask);
 
@@ -55,9 +61,21 @@ public class AliService {
 
         });
 
+//        SpiderMonitor register = SpiderMonitor.instance().register(spider);
+
+        MySpiderMonitor register = MySpiderMonitor.instance().register(spider);
+        this.mySpiderMonitor = register;
+
         spider.setDownloader(alibabaDownloader);
 
         spider.start();
     }
 
+    public MySpiderMonitor getMySpiderMonitor() {
+        return mySpiderMonitor;
+    }
+
+    public void setMySpiderMonitor(MySpiderMonitor mySpiderMonitor) {
+        this.mySpiderMonitor = mySpiderMonitor;
+    }
 }
