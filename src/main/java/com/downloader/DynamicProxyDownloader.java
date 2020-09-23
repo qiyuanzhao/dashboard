@@ -98,7 +98,7 @@ public class DynamicProxyDownloader extends HttpClientDownloader {
 
         HttpClientBuilder builder = ignoreValidating();
 
-//        builder.setProxy(httpHost);
+        builder.setProxy(httpHost);
         CloseableHttpClient httpclient = builder.build();
         return httpclient;
 

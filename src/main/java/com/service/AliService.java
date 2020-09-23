@@ -67,6 +67,7 @@ public class AliService {
         this.mySpiderMonitor = register;
 
         spider.setDownloader(alibabaDownloader);
+        spider.thread(5);
 
         spider.start();
     }

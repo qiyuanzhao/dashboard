@@ -23,7 +23,7 @@ public class AlibabaProcessor extends BasePageProcessor {
             .setRetryTimes(6)//重试6次
             .setSleepTime(10000)
             .setTimeOut(10 * 1000)
-//            .addHeader("Proxy-Authorization", DynamicProxyDownloader.getAuthHeader())
+            .addHeader("Proxy-Authorization", DynamicProxyDownloader.getAuthHeader())
 //            .addHeader("Referer", "https://s.weibo.com")
             .addHeader("Cookie", randomCookie())
             .addHeader("User-Agent", randomUserAgent());
