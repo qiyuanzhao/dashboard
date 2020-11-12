@@ -34,10 +34,12 @@ public class MySpiderStatus implements SpiderStatusMXBean {
         return this.spider;
     }
 
+    @Override
     public String getName() {
         return spider.getUUID();
     }
 
+    @Override
     public int getLeftPageCount() {
         if (spider.getScheduler() instanceof MonitorableScheduler) {
             return ((MonitorableScheduler) spider.getScheduler()).getLeftRequestsCount(spider);
@@ -46,6 +48,7 @@ public class MySpiderStatus implements SpiderStatusMXBean {
         return -1;
     }
 
+    @Override
     public int getTotalPageCount() {
         if (spider.getScheduler() instanceof MonitorableScheduler) {
             return ((MonitorableScheduler) spider.getScheduler()).getTotalRequestsCount(spider);
@@ -64,6 +67,7 @@ public class MySpiderStatus implements SpiderStatusMXBean {
         return monitorSpiderListener.getErrorCount().get();
     }
 
+    @Override
     public List<String> getErrorPages() {
         return monitorSpiderListener.getErrorUrls();
     }
@@ -78,10 +82,12 @@ public class MySpiderStatus implements SpiderStatusMXBean {
         return spider.getThreadAlive();
     }
 
+    @Override
     public void start() {
         spider.start();
     }
 
+    @Override
     public void stop() {
         spider.stop();
     }

@@ -22,6 +22,9 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author qiyuanzhao
+ */
 @Component
 public class AlibabaDownloader implements Downloader {
 

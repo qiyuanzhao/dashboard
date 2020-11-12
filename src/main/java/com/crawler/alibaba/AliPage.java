@@ -17,6 +17,7 @@ import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.utils.HttpConstant;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,6 +26,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName AliPage
@@ -43,7 +45,7 @@ public class AliPage implements BasePage {
         return RegexUtil.isMatch("http://www.yxbf.net.*", url);
     }
 
-    @Autowired
+    @Resource
     private AlibabaRepository alibabaRepository;
 
     private static AliPage aliPage;
@@ -72,15 +74,19 @@ public class AliPage implements BasePage {
                 aliEntity.setTaskId(taskId);
             });
 
-            aliPage.alibabaRepository.saveAll(aliEntities1);
+            //过滤词
+            List<AliEntity> collect = aliEntities1.stream().filter(aliEntity -> keyword.equalsIgnoreCase(aliEntity.getWord())).collect(Collectors.toList());
+
+
+            aliPage.alibabaRepository.saveAll(collect);
 
             logger.info("第{}页", integer);
 
-            if (CollectionUtils.isNotEmpty(aliEntities1)) {
-
-                page.addTargetRequest(new Request("http://www.yxbf.net/Keyword/SearchHotWords?rand=1600338591639").putExtra("page", integer + 1).putExtra("keyword", keyword).setMethod(HttpConstant.Method.POST).putExtra("taskId", taskId));
-
-            }
+//            if (CollectionUtils.isNotEmpty(aliEntities1)) {
+//
+//                page.addTargetRequest(new Request("http://www.yxbf.net/Keyword/SearchHotWords?rand=1600338591639").putExtra("page", integer + 1).putExtra("keyword", keyword).setMethod(HttpConstant.Method.POST).putExtra("taskId", taskId));
+//
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }

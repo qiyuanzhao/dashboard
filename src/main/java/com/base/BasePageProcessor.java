@@ -42,7 +42,7 @@ public abstract class BasePageProcessor implements PageProcessor {
 
     private static String[] COOKIE = new String[]{
 //            "SINAGLOBAL=9262762579760.895.1542259856140; UOR=,,login.sina.com.cn; un=tig6tz9g@duoduo.cafe; _s_tentry=s.weibo.com; Apache=623447599934.0061.1569154423470; ULV=1569154666807:2:2:1:623447599934.0061.1569154423470:1568629118094; login_sid_t=d38b1d5c23723d850528c9226101bd20; cross_origin_proto=SSL; wvr=6; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWeSACZFWFB7H-smC59bknG5JpX5K2hUgL.FoM0ehMNSh.XeKB2dJLoIERLxK-L12-L1h9ki--ci-zfi-8Wi--ciKn7i-2Ni--4iKLWi-i8i--ciK.Xi-z4; ALF=1600925438; SSOLoginState=1569389438; SCF=AtgnXFBDvRA-ACAFTJbJ_U2hd-M9-tcEg6lbqA47ypoChqp_2QBs-N2187fnz0GM2FjFj_cPR9UC5gtaIVanpmU.; SUB=_2A25wjovRDeRhGeFN61UW9CfIyjiIHXVT_foZrDV8PUNbmtAKLW6skW9NQGl_D173ePEtpKmfWtrjGSBvYlhzmxrD; SUHB=0cS32hun2ucN28; un=357zi6ni@anjing.cool; webim_unReadCount=%7B%22time%22%3A1569389444448%2C%22dm_pub_total%22%3A0%2C%22chat_group_client%22%3A0%2C%22allcountNum%22%3A23%2C%22msgbox%22%3A0%7D",
-            "ASP.NET_SessionId=ton3bpymqwdt5555z0aep3tp",
+            "ASP.NET_SessionId=ton3bpymqwdt5555z0aep3tp; Hm_lvt_6ad0ac34cce0dc99467a710197680252=1605095141; Hm_lpvt_6ad0ac34cce0dc99467a710197680252=1605095342",
     };
 
     public static String randomCookie() {

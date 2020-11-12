@@ -46,6 +46,7 @@ public class AliService {
     @Transactional(rollbackFor = Exception.class)
     public void crawlerStart(CrawlerTask crawlerTask) throws JMException {
 
+        crawlerTask.setKeywordsConcat("1");
         CrawlerTask save = taskRepository.save(crawlerTask);
 
         Spider spider = Spider.create(alibabaProcessor);
@@ -54,7 +55,7 @@ public class AliService {
         List<String> collect = Arrays.stream(keywords).collect(Collectors.toList());
 
         collect.forEach(keyword -> {
-            Request request = new Request("http://www.yxbf.net/Keyword/SearchHotWords?rand=1600338591639");
+            Request request = new Request("http://www.yxbf.net/Keyword/SearchHotWords?rand=1605096004333");
             request.putExtra("taskId", save.getId());
             request.setMethod(HttpConstant.Method.POST);
             spider.addRequest(request.putExtra("page", 1).putExtra("keyword", keyword));
